@@ -2,7 +2,7 @@
 
 import type * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { XIcon } from "lucide-react";
+import { IconX } from "@tabler/icons-react";
 
 import { cn } from "@/lib/utils";
 
@@ -64,7 +64,7 @@ function DialogContent({
 			>
 				{children}
 				<DialogPrimitive.Close className="ring-offset-[#ffffff] focus:ring-[#0000001a] data-[state=open]:bg-[#00000008] data-[state=open]:text-[#71717a] absolute top-4 right-4 rounded-lg opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4 dark:bg-[#191919] dark:text-white dark:hover:bg-[#252525] dark:hover:text-[#e0e0e0]">
-					<XIcon />
+					<IconX />
 					<span className="sr-only">Close</span>
 				</DialogPrimitive.Close>
 			</DialogPrimitive.Content>

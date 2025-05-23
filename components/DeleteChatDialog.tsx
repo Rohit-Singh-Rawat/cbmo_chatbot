@@ -10,7 +10,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { IconTrash } from "@tabler/icons-react";
 
 interface DeleteChatDialogProps {
 	onConfirm: () => void;
@@ -27,7 +27,7 @@ const DeleteChatDialog: React.FC<DeleteChatDialogProps> = ({ onConfirm }) => {
 					size="icon"
 					className="text-red-500 hover:text-red-600 hover:bg-red-100 rounded-full p-0"
 				>
-					<Trash2 className="size-4" />
+					<IconTrash size={18} />
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
