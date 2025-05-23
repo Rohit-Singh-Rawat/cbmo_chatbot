@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 
 export interface Chat {
-	id?: string;
+	id: string;
 	content: string;
 	isUser?: boolean;
 	isStreaming?: boolean;

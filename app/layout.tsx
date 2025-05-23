@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Sora } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/provider/themeProvider";
-import Topbar from "@/components/shared/topbar";
-import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from 'next';
+import { Sora } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/provider/themeProvider';
+import Topbar from '@/components/shared/topbar';
+import { Toaster } from '@/components/ui/sonner';
 const sora = Sora({
-	variable: "--font-sora",
-	subsets: ["latin"],
+	variable: '--font-sora',
+	subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-	title: "AI Chat Assistant",
+	title: 'AI Chat Assistant',
 	description:
-		"An intelligent chatbot powered by AI to help answer your questions",
+		'An intelligent chatbot powered by AI to help answer your questions',
 };
 
 export default function RootLayout({
@@ -21,8 +21,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<ThemeProvider>
+		<html
+			lang='en'
+			suppressHydrationWarning
+		>
+			<ThemeProvider
+				attribute='class'
+				defaultTheme='system'
+				enableSystem
+				disableTransitionOnChange
+			>
 				<body className={`${sora.className} antialiased`}>
 					<Topbar />
 					<Toaster />

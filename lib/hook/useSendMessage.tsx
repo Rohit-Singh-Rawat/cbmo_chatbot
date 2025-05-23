@@ -22,17 +22,14 @@ const streamingFetch = async (
 	onChunk?: (chunk: string) => void,
 	onStreamingTextUpdate?: (text: string) => void
 ): Promise<string> => {
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000'}/api/chat`,
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ message }),
-			signal,
-		}
-	);
+	const response = await fetch('/api/chat', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ message }),
+		signal,
+	});
 
 	if (!response.ok) {
 		throw new Error(`API request failed with status ${response.status}`);

@@ -4,7 +4,7 @@ import ChatInput from '../../components/ChatInput';
 import Chats from '@/components/Chats';
 import { useSendMessage } from '@/lib/hook/useSendMessage';
 import { useChatStore } from '@/store/chatstore';
-
+import { nanoid } from 'nanoid';
 const Page = () => {
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -14,7 +14,7 @@ const Page = () => {
 	const { isGenerating, isStreaming, streamingText, sendMessage } =
 		useSendMessage({
 			onComplete: (fullText) => {
-				addMessage({ content: fullText, isUser: false });
+				addMessage({ content: fullText, isUser: false, id: nanoid() });
 				setIsLoading(false);
 			},
 			onError: () => {
@@ -31,7 +31,7 @@ const Page = () => {
 	const handleSend = async () => {
 		const trimmedInput = input.trim();
 		if (!trimmedInput) return;
-		addMessage({ content: trimmedInput, isUser: true });
+		addMessage({ content: trimmedInput, isUser: true, id: nanoid() });
 		setIsLoading(true);
 		setInput('');
 		try {
