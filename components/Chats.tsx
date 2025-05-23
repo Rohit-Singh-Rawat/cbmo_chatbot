@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import type React from 'react';
+import { useEffect, useRef } from 'react';
 import { ChatMessage } from './ChatMessage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
@@ -8,8 +9,6 @@ export interface Chat {
 	content: string;
 	isUser?: boolean;
 	isStreaming?: boolean;
-	onDelete?: () => void;
-	onRegenerate?: () => void;
 }
 
 interface ChatsProps {
@@ -35,7 +34,7 @@ const Chats: React.FC<ChatsProps> = ({
 		<div
 			className={`flex flex-col w-full max-w-3xl py-20 pb-40 h-full mx-auto flex-1  ${
 				className || ''
-			} ${isStreaming ? 'h-[200vh]' : ''}`.trim()}
+			}`.trim()}
 		>
 			{messages.length > 0 ? (
 				<>
@@ -45,26 +44,25 @@ const Chats: React.FC<ChatsProps> = ({
 							{...msg}
 						/>
 					))}
-					<div className='flex items-center justify-start  text-muted-foreground  flex-col text-left'>
+					<div className='flex items-center justify-start text-muted-foreground flex-col text-left'>
 						<AnimatePresence>
-						{streamingText && isStreaming && (
-							<motion.div
-								className='w-full text-left' 
-							>
-								<ChatMessage
-									content={streamingText}
-									isUser={false}
-									isStreaming={isStreaming}
-								/>
-							</motion.div>
-						)}{' '}
-						{isStreaming && (
-							<div className='flex items-center justify-start gap-1 mt-2 text-muted-foreground pl-10 w-full'>
-								<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0s_infinite]' />
-								<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0.2s_infinite]' />
-								<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0.4s_infinite]' />
-							</div>
-						)}
+							{/* Streaming message display */}
+							{streamingText && isStreaming && (
+								<motion.div className='w-full text-left'>
+									<ChatMessage
+										content={streamingText}
+										isUser={false}
+										isStreaming={isStreaming}
+									/>
+								</motion.div>
+							)}
+							{isStreaming && (
+								<div className='flex items-center justify-start gap-1 mt-2 text-muted-foreground pl-10 w-full'>
+									<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0s_infinite]' />
+									<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0.2s_infinite]' />
+									<span className='size-1.5 rounded-full bg-muted-foreground animate-[bounce_1s_ease-in-out_0.4s_infinite]' />
+								</div>
+							)}
 						</AnimatePresence>
 					</div>
 				</>

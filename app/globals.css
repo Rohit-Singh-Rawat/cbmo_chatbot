@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin 'tailwindcss-animate';
 
@@ -152,7 +152,7 @@ pre {
 	box-shadow: 0px 4px 6px #00000015;
 }
 
-[data-theme='dark'] pre {
+[data-theme="dark"] pre {
 	background-color: #191919;
 	border: 1px solid #252525;
 	color: #e0e0e0;

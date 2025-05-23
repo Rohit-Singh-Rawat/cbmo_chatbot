@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -8,9 +8,9 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 
 interface DeleteChatDialogProps {
 	onConfirm: () => void;
@@ -20,17 +20,14 @@ const DeleteChatDialog: React.FC<DeleteChatDialogProps> = ({ onConfirm }) => {
 	const [open, setOpen] = React.useState(false);
 
 	return (
-		<Dialog
-			open={open}
-			onOpenChange={setOpen}
-		>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
-					variant='outline'
-					size='icon'
-					className='text-red-500 hover:text-red-600 hover:bg-red-100 rounded-full p-0'
+					variant="outline"
+					size="icon"
+					className="text-red-500 hover:text-red-600 hover:bg-red-100 rounded-full p-0"
 				>
-					<Trash2 className='size-4' />
+					<Trash2 className="size-4" />
 				</Button>
 			</DialogTrigger>
 			<DialogContent>
@@ -42,14 +39,11 @@ const DeleteChatDialog: React.FC<DeleteChatDialogProps> = ({ onConfirm }) => {
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
-					<Button
-						variant='outline'
-						onClick={() => setOpen(false)}
-					>
+					<Button variant="outline" onClick={() => setOpen(false)}>
 						Cancel
 					</Button>
 					<Button
-						variant='destructive'
+						variant="destructive"
 						onClick={() => {
 							onConfirm();
 							setOpen(false);

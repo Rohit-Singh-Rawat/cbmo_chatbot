@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { IconLoader2, IconX } from '@tabler/icons-react';
 import { Textarea } from './ui/textarea';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ interface ChatInputProps {
 	disabled?: boolean;
 }
 
-// Utility function to format file sizes
+// Format file sizes for display
 const formatBytes = (bytes: number) => {
 	if (bytes === 0) return '0 B';
 	const k = 1024;
@@ -103,7 +103,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
 	placeholder = 'Ask Me anything',
 	disabled = false,
 }) => {
-
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		if (e.key === 'Enter' && !e.shiftKey) {
 			e.preventDefault();
@@ -130,7 +129,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
 			>
 				<div className='relative order-2 px-2 pb-3 sm:pb-4 md:order-1'>
 					<div className='border-input rounded-3xl border bg-popover relative z-10 p-0 pt-1 shadow-sm backdrop-blur-xl dark:bg-[#191919] dark:border-[#252525] dark:shadow-2xl'>
-						{/* File preview section */}
 						<AnimatePresence>
 							{files.length > 0 && (
 								<motion.div
@@ -154,8 +152,6 @@ const ChatInput: React.FC<ChatInputProps> = ({
 								</motion.div>
 							)}
 						</AnimatePresence>
-
-						{/* Message input area */}
 						<div className='flex items-end w-full gap-2 px-3 pt-3 pb-3 justify-between'>
 							<Textarea
 								data-slot='textarea'
@@ -172,39 +168,38 @@ const ChatInput: React.FC<ChatInputProps> = ({
 								aria-label={placeholder}
 							/>
 						</div>
-
-						{/* Action buttons */}
+						{/* Action buttons 
+           	 <div className="flex items-end w-full gap-2 px-3 pb-3 justify-end">
+              {/* <Input
+                type='file'
+                className='hidden'
+                multiple
+                accept='.txt,.md,image/jpeg,image/png,image/gif,image/webp,image/svg,image/heic,image/heif'
+                aria-hidden='true'
+                ref={fileInputRef}
+                onChange={onFileChange}
+                disabled={disabled}
+              />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type='button'
+                    aria-label='Add files'
+                    className='inline-flex items-center justify-center text-muted-foreground hover:text-primary transition-all hover:scale-105 active:scale-95 size-9 rounded-full border border-border bg-transparent shadow-2xs focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-hidden disabled:opacity-50 disabled:pointer-events-none'
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={disabled}
+                    tabIndex={0}
+                  >
+                    <Clip
+                      width={22}
+                      className='fill-muted-foreground rotate-45 size-5'
+                      height={22}
+                    />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>Add files</TooltipContent>
+              </Tooltip> */}
 						<div className='flex items-end w-full gap-2 px-3 pb-3 justify-end'>
-							{/* <Input
-								type='file'
-								className='hidden'
-								multiple
-								accept='.txt,.md,image/jpeg,image/png,image/gif,image/webp,image/svg,image/heic,image/heif'
-								aria-hidden='true'
-								ref={fileInputRef}
-								onChange={onFileChange}
-								disabled={disabled}
-							/>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<button
-										type='button'
-										aria-label='Add files'
-										className='inline-flex items-center justify-center text-muted-foreground hover:text-primary transition-all hover:scale-105 active:scale-95 size-9 rounded-full border border-border bg-transparent shadow-2xs focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-hidden disabled:opacity-50 disabled:pointer-events-none'
-										onClick={() => fileInputRef.current?.click()}
-										disabled={disabled}
-										tabIndex={0}
-									>
-										<Clip
-											width={22}
-											className='fill-muted-foreground rotate-45 size-5'
-											height={22}
-										/>
-									</button>
-								</TooltipTrigger>
-								<TooltipContent>Add files</TooltipContent>
-							</Tooltip> */}
-
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<button
@@ -212,16 +207,15 @@ const ChatInput: React.FC<ChatInputProps> = ({
 										aria-label='Send message'
 										className='inline-flex items-center justify-center text-primary bg-primary hover:bg-primary/80 transition-all hover:scale-105 active:scale-95 size-9 rounded-full shadow-2xs focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-hidden disabled:opacity-50 disabled:pointer-events-none'
 										disabled={disabled || !value.trim()}
-										tabIndex={0}
 									>
 										{isStreaming ? (
-											<IconLoader2 className='size-4 animate-spin stroke-2 stroke-white' />
+											<IconLoader2 className='animate-spin' />
 										) : (
-											<PaperPlane2 className='fill-white size-4' />
+											<PaperPlane2 />
 										)}
 									</button>
 								</TooltipTrigger>
-								<TooltipContent>Send message</TooltipContent>
+								<TooltipContent>Send</TooltipContent>
 							</Tooltip>
 						</div>
 					</div>
