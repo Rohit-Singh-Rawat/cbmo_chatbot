@@ -6,18 +6,30 @@ import { IconSun, IconMoon } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function ThemeToggle() {
-	const { theme, setTheme } = useTheme();
+	const { resolvedTheme, setTheme } = useTheme();
+
+  const switchTheme = () => {
+		setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+	};
+
+  const toggleTheme = () => {
+		//@ts-ignore
+		if (!document.startViewTransition) switchTheme();
+
+		//@ts-ignore
+		document.startViewTransition(switchTheme);
+	};
 
 	return (
 		<Button
 			variant='outline'
 			size='icon'
 			className='hover:bg-accent text-muted-foreground hover:text-foreground flex items-center justify-center rounded-full bg-transparent transition-all duration-300 size-8 sm:size-9'
-			onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+			onClick={toggleTheme}
 		>
 			<div className='relative flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5'>
 				<AnimatePresence mode='wait'>
-					{theme === 'light' ? (
+					{resolvedTheme === 'light' ? (
 						<motion.div
 							key='sun'
 							initial={{ scale: 0.5, opacity: 0 }}

@@ -5,6 +5,7 @@ import Chats from '@/components/Chats';
 import { useSendMessage } from '@/lib/hook/useSendMessage';
 import { useChatStore } from '@/store/chatstore';
 import { nanoid } from 'nanoid';
+import { toast } from 'sonner';
 const Page = () => {
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +20,7 @@ const Page = () => {
 			},
 			onError: () => {
 				setIsLoading(false);
+				toast.error('Error sending message');
 			},
 		});
 
