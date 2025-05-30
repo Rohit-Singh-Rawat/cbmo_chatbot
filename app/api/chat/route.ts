@@ -1,5 +1,5 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
+import { type NextRequest, NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
 
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 		const { message } = await request.json();
 
 		const model = await ai.models.generateContentStream({
-			model: 'gemini-2.0-flash',
+			model: "gemini-2.0-flash",
 			config: {
 				temperature: 0.7,
 				topK: 40,
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
 				maxOutputTokens: 1024,
 			},
 			contents: [
-				{ role: 'model', parts: [{ text: systemPrompt }] },
-				{ role: 'user', parts: [{ text: message }] },
+				{ role: "model", parts: [{ text: systemPrompt }] },
+				{ role: "user", parts: [{ text: message }] },
 			],
 		});
 
@@ -52,16 +52,16 @@ export async function POST(request: NextRequest) {
 
 		return new Response(stream, {
 			headers: {
-				'Content-Type': 'text/event-stream; charset=utf-8',
-				'Cache-Control': 'no-cache',
-				Connection: 'keep-alive',
+				"Content-Type": "text/event-stream; charset=utf-8",
+				"Cache-Control": "no-cache",
+				Connection: "keep-alive",
 			},
 		});
 	} catch (error) {
-		console.error('API Error:', error);
+		console.error("API Error:", error);
 		return NextResponse.json(
-			{ error: 'Failed to process request' },
-			{ status: 500 }
+			{ error: "Failed to process request" },
+			{ status: 500 },
 		);
 	}
 }

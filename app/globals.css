@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 /*
   ---break---
 */
@@ -367,7 +367,7 @@ pre::-webkit-scrollbar-thumb:hover {
 
 .dark pre::-webkit-scrollbar-thumb {
 	background-color: #292626;
-	border: 2px solid transparent; 
+	border: 2px solid transparent;
 	padding: 4px;
 	background-clip: padding-box;
 }
@@ -391,25 +391,25 @@ pre::-webkit-scrollbar-thumb:hover {
 
 /* view transition */
 ::view-transition-group(root) {
-  animation-duration: 0.7s;
-  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275)
+	animation-duration: 0.7s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 ::view-transition-new(root) {
-  animation-name: reveal;
+	animation-name: reveal;
 }
 
 ::view-transition-old(root),
 .dark::view-transition-old(root) {
-  animation: none;
-  z-index: -1;
+	animation: none;
+	z-index: -1;
 }
 
 @keyframes reveal {
-  from {
-    clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
-  }
-  to {
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
+	from {
+		clip-path: polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%);
+	}
+	to {
+		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+	}
 }

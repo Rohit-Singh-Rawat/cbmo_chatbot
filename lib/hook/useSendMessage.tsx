@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 type SendMessageOptions = {
 	onChunk?: (chunk: string) => void;
@@ -20,12 +20,12 @@ const streamingFetch = async (
 	message: string,
 	signal: AbortSignal,
 	onChunk?: (chunk: string) => void,
-	onStreamingTextUpdate?: (text: string) => void
+	onStreamingTextUpdate?: (text: string) => void,
 ): Promise<string> => {
-	const response = await fetch('/api/chat', {
-		method: 'POST',
+	const response = await fetch("/api/chat", {
+		method: "POST",
 		headers: {
-			'Content-Type': 'application/json',
+			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ message }),
 		signal,
@@ -36,12 +36,12 @@ const streamingFetch = async (
 	}
 
 	if (!response.body) {
-		throw new Error('ReadableStream not supported');
+		throw new Error("ReadableStream not supported");
 	}
 
 	const reader = response.body.getReader();
 	const decoder = new TextDecoder();
-	let fullText = '';
+	let fullText = "";
 
 	while (true) {
 		const { done, value } = await reader.read();
@@ -62,7 +62,7 @@ export function useSendMessage({
 }: SendMessageOptions = {}): SendMessageResult {
 	const [isGenerating, setIsGenerating] = useState(false);
 	const [isStreaming, setIsStreaming] = useState(false);
-	const [streamingText, setStreamingText] = useState('');
+	const [streamingText, setStreamingText] = useState("");
 	const [error, setError] = useState<Error | null>(null);
 	const [abortController, setAbortController] =
 		useState<AbortController | null>(null);
@@ -72,7 +72,7 @@ export function useSendMessage({
 			abortController.abort();
 			setIsGenerating(false);
 			setIsStreaming(false);
-			setStreamingText('');
+			setStreamingText("");
 		}
 	}, [abortController]);
 
@@ -80,7 +80,7 @@ export function useSendMessage({
 		async (message: string): Promise<string> => {
 			setIsGenerating(true);
 			setIsStreaming(true);
-			setStreamingText('');
+			setStreamingText("");
 			setError(null);
 
 			const controller = new AbortController();
@@ -91,14 +91,14 @@ export function useSendMessage({
 					message,
 					controller.signal,
 					onChunk,
-					(text) => setStreamingText(text)
+					(text) => setStreamingText(text),
 				);
 
 				if (onComplete) onComplete(fullText);
 				return fullText;
 			} catch (err) {
 				const error = err instanceof Error ? err : new Error(String(err));
-				if (error.name !== 'AbortError') {
+				if (error.name !== "AbortError") {
 					setError(error);
 					if (onError) onError(error);
 				}
@@ -109,7 +109,7 @@ export function useSendMessage({
 				setAbortController(null);
 			}
 		},
-		[onChunk, onComplete, onError]
+		[onChunk, onComplete, onError],
 	);
 
 	return {

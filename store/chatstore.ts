@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { Chat } from '@/components/Chats';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { Chat } from "@/components/Chats";
 
 interface ChatState {
 	messages: Chat[];
@@ -32,7 +32,7 @@ export const useChatStore = create<ChatState>()(
 				})),
 		}),
 		{
-			name: 'chat-storage',
-		}
-	)
+			name: "chat-storage",
+		},
+	),
 );

@@ -2,14 +2,12 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconBrandGithub, IconBrandGoogle } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -17,9 +15,7 @@ import {
 	registerSchema,
 	type RegisterFormData,
 } from '../../lib/validation/register';
-import { error } from 'console';
-
-
+import { OAuthButtons } from './oauth-buttons';
 
 export function RegisterForm() {
 	const form = useForm<RegisterFormData>({
@@ -33,7 +29,7 @@ export function RegisterForm() {
 	});
 
 	const handleSubmit = async (data: RegisterFormData) => {
-		const result = await Promise.resolve({ success: true,error:'' });
+		const result = await Promise.resolve({ success: true, error: '' });
 		if (result.error) {
 			form.setError('root', { message: result.error });
 		}
@@ -125,41 +121,7 @@ export function RegisterForm() {
 					Sign up
 				</Button>
 
-				<div className='relative'>
-					<div className='absolute inset-0 flex items-center'>
-						<div className='w-full border-t border-border' />
-					</div>
-					<div className='relative flex justify-center text-sm'>
-						<span className='px-2 bg-background text-muted-foreground'>
-							Or authorize with
-						</span>
-					</div>
-				</div>
-
-				<div className='grid grid-cols-2 gap-3'>
-					<Button
-						type='button'
-						variant='outline'
-						className='w-full font-medium h-11 rounded-lg'
-						onClick={() => {
-							/* Add Google OAuth logic */
-						}}
-					>
-						<IconBrandGoogle className='mr-2' />
-						Google
-					</Button>
-					<Button
-						type='button'
-						variant='outline'
-						className='w-full font-medium h-11 rounded-lg'
-						onClick={() => {
-							/* Add GitHub OAuth logic */
-						}}
-					>
-						<IconBrandGithub className='mr-2' />
-						GitHub
-					</Button>
-				</div>
+				<OAuthButtons />
 			</form>
 		</Form>
 	);

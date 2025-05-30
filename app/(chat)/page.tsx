@@ -1,13 +1,13 @@
-'use client';
-import { useState } from 'react';
-import ChatInput from '../../components/ChatInput';
-import Chats from '@/components/Chats';
-import { useSendMessage } from '@/lib/hook/useSendMessage';
-import { useChatStore } from '@/store/chatstore';
-import { nanoid } from 'nanoid';
-import { toast } from 'sonner';
+"use client";
+import { useState } from "react";
+import ChatInput from "../../components/ChatInput";
+import Chats from "@/components/Chats";
+import { useSendMessage } from "@/lib/hook/useSendMessage";
+import { useChatStore } from "@/store/chatstore";
+import { nanoid } from "nanoid";
+import { toast } from "sonner";
 const Page = () => {
-	const [input, setInput] = useState('');
+	const [input, setInput] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [files, setFiles] = useState<File[]>([]);
 
@@ -20,7 +20,7 @@ const Page = () => {
 			},
 			onError: () => {
 				setIsLoading(false);
-				toast.error('Error sending message');
+				toast.error("Error sending message");
 			},
 		});
 
@@ -35,7 +35,7 @@ const Page = () => {
 		if (!trimmedInput) return;
 		addMessage({ content: trimmedInput, isUser: true, id: nanoid() });
 		setIsLoading(true);
-		setInput('');
+		setInput("");
 		try {
 			await sendMessage(trimmedInput);
 		} catch {
@@ -48,7 +48,7 @@ const Page = () => {
 	};
 
 	return (
-		<main className='p-4 min-h-screen flex flex-col justify-end bg-background items-center container mx-auto'>
+		<main className="p-4 min-h-screen flex flex-col justify-end bg-background items-center container mx-auto">
 			<Chats
 				messages={messages}
 				streamingText={streamingText}

@@ -4,6 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/provider/themeProvider';
 import Topbar from '@/components/shared/topbar';
 import { Toaster } from '@/components/ui/sonner';
+import Providers from '@/components/provider/providers';
 const sora = Sora({
 	variable: '--font-sora',
 	subsets: ['latin'],
@@ -25,18 +26,19 @@ export default function RootLayout({
 			lang='en'
 			suppressHydrationWarning
 		>
-			<ThemeProvider
-				attribute='class'
-				defaultTheme='system'
-				enableSystem
-				disableTransitionOnChange
-			>
+			<head>
+				<meta
+					name='apple-mobile-web-app-title'
+					content='MyWebSite'
+				/>
+			</head>
+			<Providers>
 				<body className={`${sora.className} antialiased`}>
 					<Topbar />
 					<Toaster />
 					{children}
 				</body>
-			</ThemeProvider>
+			</Providers>
 		</html>
 	);
 }
