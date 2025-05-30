@@ -114,7 +114,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 	};
 
 	return (
-		<div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-3xl opacity-100 bg-background px-2 sm:px-0">
+		<div className="sticky inset-x-0 bottom-0 z-50 mx-auto w-full max-w-3xl opacity-100 bg-background px-2 sm:px-0">
 			<form
 				className="relative flex w-full flex-col gap-2 sm:gap-4"
 				onSubmit={handleFormSubmit}

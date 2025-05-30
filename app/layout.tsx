@@ -34,7 +34,7 @@ export default function RootLayout({
 			</head>
 			<Providers>
 				<body className={`${sora.className} antialiased`}>
-					<Topbar />
+					
 					<Toaster />
 					{children}
 				</body>

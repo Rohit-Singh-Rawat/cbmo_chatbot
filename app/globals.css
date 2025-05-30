@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 /*
   ---break---
 */
@@ -156,8 +156,8 @@
 
 		/* Utility colors */
 		--destructive: #ef4444;
-		--border: rgba(255, 255, 255, 0.1);
-		--input: rgba(255, 255, 255, 0.15);
+		--border: #262626;
+		--input: #363636;
 		--ring: #737373;
 
 		/* Chart colors */
@@ -168,14 +168,14 @@
 		--chart-5: #a78bfa;
 
 		/* Sidebar colors */
-		--sidebar: #262626;
+		--sidebar: #181818;
 		--sidebar-foreground: #fafafa;
-		--sidebar-primary: #60a5fa;
-		--sidebar-primary-foreground: #fafafa;
-		--sidebar-accent: #363636;
+		--sidebar-primary: #181818;
+		--sidebar-primary-foreground: #ffffff;
+		--sidebar-accent: #181818;
 		--sidebar-accent-foreground: #fafafa;
-		--sidebar-border: rgba(255, 255, 255, 0.1);
-		--sidebar-ring: #737373;
+		--sidebar-border: #181818;
+		--sidebar-ring: #181818;
 	}
 }
 
@@ -411,5 +411,22 @@ pre::-webkit-scrollbar-thumb:hover {
 	}
 	to {
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+	}
+}
+
+/*
+  ---break---
+*/
+
+/*
+  ---break---
+*/
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
 	}
 }
