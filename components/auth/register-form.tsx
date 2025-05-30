@@ -24,7 +24,6 @@ export function RegisterForm() {
 			name: '',
 			email: '',
 			password: '',
-			confirmPassword: '',
 		},
 	});
 
@@ -83,23 +82,6 @@ export function RegisterForm() {
 								<Input
 									type='password'
 									placeholder='Create a password'
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-
-				<FormField
-					control={form.control}
-					name='confirmPassword'
-					render={({ field }) => (
-						<FormItem>
-							<FormControl>
-								<Input
-									type='password'
-									placeholder='Confirm your password'
 									{...field}
 								/>
 							</FormControl>

@@ -17,6 +17,7 @@ export default function LoginPage() {
 							iconOnly
 							size="sm"
 						/>
+						
 					</div>
 					<h2 className="text-2xl text-foreground">Sign in to Your Account</h2>
 					<p className="mt-2 text-muted-foreground text-sm font-light">
