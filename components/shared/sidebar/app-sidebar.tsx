@@ -1,5 +1,3 @@
-import { MessageSquarePlus, History, Settings } from 'lucide-react';
-
 import {
 	Sidebar,
 	SidebarContent,
@@ -13,11 +11,17 @@ import {
 } from '@/components/ui/sidebar';
 import Logo from '../Logo';
 import { SolarPenNewSquareBold } from '@/components/icons/newChat';
+import Link from 'next/link';
+import { ChatMenuItem } from './chat-menu-item';
+import { api } from '@/trpc/server';
+import Chats from './chats';
+import { Suspense } from 'react';
+import Loading from '@/components/icons/loading';
 
 export function AppSidebar() {
 	return (
 		<Sidebar>
-			<SidebarContent>
+			<SidebarContent className='flex flex-col'>
 				<div className='flex items-center justify-between p-4'>
 					<div className='flex items-center gap-2'>
 						<Logo size='sm' />
@@ -30,24 +34,37 @@ export function AppSidebar() {
 						<SidebarMenu>
 							<SidebarMenuItem>
 								<SidebarMenuButton asChild>
-									<a
+									<Link
 										href='/chat/new'
-										className='flex items-center gap-2 px-3 py-2 rounded-md hover:bg-sidebar-hover transition-colors duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-sidebar-hover/50 cursor-pointer select-none'
+										className=''
 									>
 										<SolarPenNewSquareBold className='size-6' />
-										<span className='font-medium'>New Chat</span>
-									</a>
+										<span className='font text-foreground'>New Chat</span>
+									</Link>
 								</SidebarMenuButton>
 							</SidebarMenuItem>
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
 
-				<SidebarGroup>
-					<SidebarGroupLabel>Recent Chats</SidebarGroupLabel>
-					<SidebarGroupContent>
-						<SidebarMenu>
-							{/* Chat items will be dynamically rendered here */}
+				<SidebarGroup className='flex-1'>
+					<SidebarGroupLabel className='text-muted-foreground font-light'>
+						Recent Chats
+					</SidebarGroupLabel>
+					<SidebarGroupContent className='flex-1'>
+						<SidebarMenu className='h-full'>
+							<Suspense
+								fallback={
+									<div className='flex items-center justify-center w-full  flex-1 h-full'>
+										<Loading
+											className='size-7'
+											speed={0.5}
+										/>
+									</div>
+								}
+							>
+								<Chats />
+							</Suspense>
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>

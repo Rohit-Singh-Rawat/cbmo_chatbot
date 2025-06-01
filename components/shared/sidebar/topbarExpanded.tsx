@@ -18,14 +18,14 @@ export default function TopbarExpanded() {
 			<Button
 				variant='ghost'
 				size='icon'
-				className='w-full flex  gap-2 [&_svg]:size-6 size-8 justify-center items-center'
+				className='w-full flex  gap-2 [&_svg]:size-5 size-6 justify-center items-center'
 			>
 				<SolarPenNewSquareBold className='h-4 w-4' />
 				<span className='sr-only'>New Chat</span>
 			</Button>
 			{'/'}
 
-			<Logo size='sm' />
+			<Logo size='xs' />
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { LineMdLoadingTwotoneLoop } from "@/components/icons/loading";
+import Loading from '@/components/icons/loading';
 
 import { cn } from "@/lib/utils";
 
@@ -56,7 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 			>
 				{loading ? (
 					<>
-						<LineMdLoadingTwotoneLoop />
+						<Loading className='size-4' />
 						{loadingText || children}
 					</>
 				) : (

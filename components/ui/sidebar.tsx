@@ -272,8 +272,8 @@ function SidebarTrigger({
 			variant='ghost'
 			size='icon'
 			className={cn(
-				'flex justify-center items-center size-8 [&_svg]:size-6 p-0',
-				state === 'expanded' && 'bg-white/5'
+				'flex justify-center items-center size-6 [&_svg]:size-5 p-0',
+				state === 'expanded' && 'bg-black/10 dark:bg-white/5'
 			)}
 			onClick={(event) => {
 				onClick?.(event);

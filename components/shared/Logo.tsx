@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
 	className?: string;
-	size?: "sm" | "md" | "lg";
+	size?: "sm" | "md" | "lg" | "xs";
 	iconOnly?: boolean;
 }
 
@@ -13,6 +13,7 @@ export default function Logo({
 	iconOnly = false,
 }: LogoProps) {
 	const sizes = {
+		xs: "h-5 w-5",
 		sm: "h-6 w-6",
 		md: "h-8 w-8",
 		lg: "h-10 w-10",

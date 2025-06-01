@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
 	DropdownMenu,
@@ -16,6 +15,9 @@ import { authClient } from '@/utils/auth-client';
 import { SolarSettingsLineDuotone } from '@/components/icons/settings';
 import { SolarLogout2LineDuotone } from '@/components/icons/logout';
 import { toast } from 'sonner';
+import { useState } from 'react';
+import SettingsModal from '../dialogs/SettingsModal';
+import Link from 'next/link';
 
 interface UserMenuClientProps {
 	user?: {
@@ -27,7 +29,7 @@ interface UserMenuClientProps {
 
 export function UserMenuClient({ user }: UserMenuClientProps) {
 	const router = useRouter();
-	
+
 	if (!user) {
 		return (
 			<div className='flex gap-2'>
@@ -77,15 +79,15 @@ export function UserMenuClient({ user }: UserMenuClientProps) {
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<Link
-						href='/settings'
-						className='flex items-center group font-light'
-					>
-						<SolarSettingsLineDuotone className='mr-2 h-4 w-4 group-hover:animate-[spin_2s_ease-in-out_infinite] transition-transform  ease-in-out ' />
-						Settings
-					</Link>
-				</DropdownMenuItem>
+				<SettingsModal
+					trigger={
+						<button className="focus:bg-accent focus:text-accent-foreground hover:bg-accent hover:text-accent-foreground active:bg-accent/80 font-light active:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 w-full">
+							<SolarSettingsLineDuotone className='mr-2 h-4 w-4 group-hover:animate-[spin_2s_ease-in-out_infinite] transition-transform ease-in-out' />
+							Settings
+						</button>
+					}
+				/>
+
 				<DropdownMenuItem
 					className='text-red-600 focus:text-red-600 group font-light'
 					onClick={() => {
