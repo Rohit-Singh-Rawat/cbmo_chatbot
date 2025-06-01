@@ -37,7 +37,7 @@ const AccountTab: React.FC = () => {
 		<section className=' mx-auto px-2'>
 			<div className='space-y-2'>
 				<h2 className='text-xl  tracking-tight'>Account Settings</h2>
-				<p className='text-muted-foreground'>
+				<p className='text-muted-foreground text-sm font-light'>
 					Manage your account preferences and security.
 				</p>
 			</div>

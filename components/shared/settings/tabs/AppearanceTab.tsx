@@ -18,7 +18,8 @@ const AppearanceTab: React.FC = () => {
 		<div className='space-y-6 px-2'>
 			<div>
 				<h2 className='text-xl mb-2'>Appearance Settings</h2>
-				<p className='text-sm text-muted-foreground'>
+
+				<p className='text-muted-foreground text-sm font-light'>
 					Customize the look and feel of the app.
 				</p>
 			</div>

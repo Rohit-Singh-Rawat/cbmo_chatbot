@@ -10,7 +10,7 @@ interface LoadingProps extends SVGProps<SVGSVGElement> {
   opacity?: number;
 }
 
-export default function LineMdLoadingTwotoneLoop({
+export default function Loading({
   color = '#888888',
   size = 24,
   speed = 1.5,
