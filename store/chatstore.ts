@@ -1,38 +1,49 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import type { Chat } from "@/components/Chats";
 
 interface ChatState {
-	messages: Chat[];
-	addMessage: (message: Chat) => void;
-	clearMessages: () => void;
-	removeMessage: (index: number) => void;
-	updateMessage: (index: number, message: Chat) => void;
+  messages: Chat[];
+  tempMessages: Chat[];
+  conversationId: string | null;
+  isLoading: boolean;
+  error: string | null;
+  addMessage: (message: Chat, isNewChat?: boolean) => Promise<void>;
+  setConversationId: (id: string | null) => void;
+  moveTempToMessages: () => void;
 }
 
-export const useChatStore = create<ChatState>()(
-	persist(
-		(set) => ({
-			messages: [],
-			addMessage: (message) =>
-				set((state) => ({
-					messages: [...state.messages, message],
-				})),
-			clearMessages: () =>
-				set(() => ({
-					messages: [],
-				})),
-			removeMessage: (index) =>
-				set((state) => ({
-					messages: state.messages.filter((_, i) => i !== index),
-				})),
-			updateMessage: (index, message) =>
-				set((state) => ({
-					messages: state.messages.map((m, i) => (i === index ? message : m)),
-				})),
-		}),
-		{
-			name: "chat-storage",
-		},
-	),
-);
+export const useChatStore = create<ChatState>()((set, get) => ({
+  messages: [],
+  tempMessages: [],
+  conversationId: null,
+  isLoading: false,
+  error: null,
+
+  setConversationId: (id) => set({ conversationId: id }),
+
+  moveTempToMessages: () => {
+    set((state) => ({
+      messages: [...state.tempMessages],
+      tempMessages: []
+    }));
+  },
+
+  addMessage: async (message, isNewChat = false) => {
+    try {
+      set({ isLoading: true, error: null });
+      const { conversationId } = get();
+      
+      if (!isNewChat && !conversationId) {
+        throw new Error("No conversation ID provided");
+      }
+
+      set((state) => ({
+        messages: isNewChat ? state.messages : [...state.messages, message],
+        tempMessages: isNewChat ? [...state.tempMessages, message] : state.tempMessages,
+        isLoading: false
+      }));
+    } catch (error) {
+      set({ error: "Failed to add message", isLoading: false });
+    }
+  }
+}));

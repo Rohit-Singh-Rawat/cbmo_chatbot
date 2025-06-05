@@ -34,24 +34,24 @@ const AccountTab: React.FC = () => {
 	};
 
 	return (
-		<section className=' mx-auto px-2'>
+		<section className='mx-auto px-2 sm:px-4'>
 			<div className='space-y-2'>
-				<h2 className='text-xl  tracking-tight'>Account Settings</h2>
-				<p className='text-muted-foreground text-sm font-light'>
+				<h2 className='text-lg sm:text-xl tracking-tight'>Account Settings</h2>
+				<p className='text-muted-foreground text-xs sm:text-sm font-light'>
 					Manage your account preferences and security.
 				</p>
 			</div>
 
-			<Separator className='my-6' />
+			<Separator className='my-4 sm:my-6' />
 
-			<div className='space-y-8'>
-				<div className='space-y-6'>
-					<h3 className='text-lg font-medium text-destructive'>Danger Zone</h3>
-					<div className='grid gap-4'>
-						<div className='flex items-center justify-between p-4'>
+			<div className='space-y-6 sm:space-y-8'>
+				<div className='space-y-4 sm:space-y-6'>
+					<h3 className='text-base sm:text-lg font-medium text-destructive'>Danger Zone</h3>
+					<div className='grid gap-3 sm:gap-4'>
+						<div className='flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 sm:gap-0'>
 							<div className='space-y-1'>
 								<h4 className='text-sm font-medium'>Sign Out</h4>
-								<p className='text-sm text-muted-foreground'>
+								<p className='text-xs sm:text-sm text-muted-foreground'>
 									Sign out of your account
 								</p>
 							</div>
@@ -59,17 +59,17 @@ const AccountTab: React.FC = () => {
 								variant='destructive'
 								size='sm'
 								onClick={handleSignOut}
-								className='transition-all hover:scale-105'
+								className='transition-all hover:scale-105 w-full sm:w-auto'
 							>
 								<SolarLogout2LineDuotone className='mr-2 h-4 w-4' />
 								Sign Out
 							</Button>
 						</div>
 
-						<div className='flex items-center justify-between p-4'>
+						<div className='flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 gap-3 sm:gap-0'>
 							<div className='space-y-1'>
 								<h4 className='text-sm font-medium'>Delete Account</h4>
-								<p className='text-sm text-muted-foreground'>
+								<p className='text-xs sm:text-sm text-muted-foreground'>
 									Permanently delete your account and all your data
 								</p>
 							</div>
@@ -78,7 +78,7 @@ const AccountTab: React.FC = () => {
 									<Button 
 										variant='destructive'
 										size='sm'
-										className='transition-all hover:scale-105 ml-4'
+										className='transition-all hover:scale-105 w-full sm:w-auto'
 									>
 										<IconTrash className='mr-2 h-4 w-4' />
 										Delete Account
@@ -96,7 +96,6 @@ const AccountTab: React.FC = () => {
 										<AlertDialogCancel>Cancel</AlertDialogCancel>
 										<AlertDialogAction
 											className='bg-destructive text-destructive-foreground hover:bg-destructive/90 dark:bg-destructive'
-											
 											onClick={() => {
 												// Add delete account logic here
 												toast.error('Account deletion not implemented yet');

@@ -1,12 +1,11 @@
 'use client';
 import { useState } from 'react';
-import ChatInput from '../../components/ChatInput';
+import ChatInput from '@/components/ChatInput';
 import Chats from '@/components/Chats';
 import { useSendMessage } from '@/lib/hook/useSendMessage';
 import { useChatStore } from '@/store/chatstore';
 import { nanoid } from 'nanoid';
 import { toast } from 'sonner';
-import WelcomeMessage from '@/components/chats/WelcomeMessage';
 const Page = () => {
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -49,8 +48,12 @@ const Page = () => {
 	};
 
 	return (
-		<div className='p-4  flex flex-col justify-end bg-background items-center container mx-auto relative flex-1'>
-			<WelcomeMessage />
+		<div className='p-4  flex flex-col justify-end bg-background items-center container mx-auto relative'>
+			<Chats
+				messages={messages}
+				streamingText={streamingText}
+				isStreaming={isProcessing}
+			/>
 			<ChatInput
 				value={input}
 				onChange={handleInputChange}

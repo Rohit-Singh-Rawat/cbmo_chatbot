@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import PaperPlane2 from "./icons/send";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import Loading from "./icons/loading";
 
 interface ChatInputProps {
 	value: string;
@@ -114,7 +115,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 	};
 
 	return (
-		<div className="sticky inset-x-0 bottom-0 z-50 mx-auto w-full max-w-3xl opacity-100 bg-background px-2 sm:px-0">
+		<div className="fixed  bottom-0 z-50 mx-auto w-full max-w-3xl opacity-100 bg-background px-2 sm:px-0">
 			<form
 				className="relative flex w-full flex-col gap-2 sm:gap-4"
 				onSubmit={handleFormSubmit}
@@ -170,7 +171,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
 										disabled={disabled || !value.trim()}
 									>
 										{isStreaming ? (
-											<IconLoader2 className="size-4 sm:size-5 animate-spin" />
+											<Loading speed={1} className="size-4 sm:size-5 " />
 										) : (
 											<PaperPlane2 className="size-4 sm:size-5 fill-primary-foreground" />
 										)}

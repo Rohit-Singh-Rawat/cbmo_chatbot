@@ -15,38 +15,37 @@ const AppearanceTab: React.FC = () => {
 	const { theme, setTheme } = useTheme();
 
 	return (
-		<div className='space-y-6 px-2'>
+		<div className='space-y-6 px-2 sm:px-4'>
 			<div>
-				<h2 className='text-xl mb-2'>Appearance Settings</h2>
-
-				<p className='text-muted-foreground text-sm font-light'>
+				<h2 className='text-lg sm:text-xl mb-2'>Appearance Settings</h2>
+				<p className='text-muted-foreground text-xs sm:text-sm font-light'>
 					Customize the look and feel of the app.
 				</p>
 			</div>
 
 			<fieldset className='space-y-4'>
-				<legend className='text-foreground text-sm leading-none font-medium'>
+				<legend className='text-foreground text-xs sm:text-sm leading-none font-medium'>
 					Choose a theme
 				</legend>
 				<RadioGroup
-					className='flex gap-3'
+					className='flex flex-col sm:flex-row gap-3'
 					defaultValue={theme}
 					onValueChange={(value) => setTheme(value)}
 				>
 					{items.map((item) => (
 						<label
 							key={`${id}-${item.value}`}
-							className='relative p-2   '
+							className='relative p-2 w-full sm:w-auto'
 						>
 							<RadioGroupItem
 								id={`${id}-${item.value}`}
 								value={item.value}
 								className='peer sr-only after:absolute after:inset-0'
 							/>
-							<div className='group'>
+							<div className='group flex flex-col items-center sm:items-start'>
 								<ThemePreviewSvg
 									themeType={item.value as 'light' | 'dark' | 'system'}
-									className='border border-border hover:border-primary/50 rounded-2xl active:border-primary/30 transition-colors duration-200'
+									className='border border-border hover:border-primary/50 rounded-2xl active:border-primary/30 transition-colors duration-200 w-full sm:w-auto'
 								/>
 								<span className='group peer-data-[state=unchecked]:text-muted-foreground/70 mt-2 flex items-center gap-1'>
 									<CheckIcon

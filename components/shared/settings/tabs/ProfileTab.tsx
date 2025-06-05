@@ -45,21 +45,20 @@ const ProfileTab: React.FC = () => {
 	}
 
 	return (
-		<section className='px-2 space-y-8 '>
-			<div>
-				<h2 className='text-xl '>Profile Settings</h2>
-
-				<p className='text-muted-foreground text-sm font-light'>
+		<section className='mx-auto px-2 sm:px-4 space-y-6 sm:space-y-8'>
+			<div className='space-y-2'>
+				<h2 className='text-lg sm:text-xl tracking-tight'>Profile Settings</h2>
+				<p className='text-muted-foreground text-xs sm:text-sm font-light'>
 					Update your profile information and preferences
 				</p>
 			</div>
 
-			<div className='flex items-center gap-8'>
+			<div className='flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8'>
 				<div className='relative group'>
-					<Avatar className='h-24 w-24 border-2 border-border transition-all duration-200 group-hover:border-primary rounded-lg'>
+					<Avatar className='h-20 w-20 sm:h-24 sm:w-24 border-2 border-border transition-all duration-200 group-hover:border-primary rounded-lg'>
 						{isPending ? (
 							<div className='flex items-center justify-center h-full w-full'>
-								<Loading className='w-6 h-6 ' />
+								<Loading className='w-5 h-5 sm:w-6 sm:h-6' />
 							</div>
 						) : (
 							<>
@@ -68,7 +67,7 @@ const ProfileTab: React.FC = () => {
 									alt='Profile picture'
 									className='rounded-lg'
 								/>
-								<AvatarFallback className='text-lg rounded-lg'>
+								<AvatarFallback className='text-base sm:text-lg rounded-lg'>
 									{session?.user?.name?.charAt(0) || 'U'}
 								</AvatarFallback>
 							</>
@@ -86,27 +85,27 @@ const ProfileTab: React.FC = () => {
 					</div>
 				</div>
 				<div className='space-y-1'>
-					<h3 className='font-medium'>Profile Picture</h3>
-					<p className='text-sm text-muted-foreground'>
+					<h3 className='text-sm sm:text-base font-medium'>Profile Picture</h3>
+					<p className='text-xs sm:text-sm text-muted-foreground'>
 						Upload a new profile picture. Max size: 2MB
 					</p>
 				</div>
 			</div>
 
-			<Separator />
+			<Separator className='my-4 sm:my-6' />
 
-			<div className='space-y-6'>
+			<div className='space-y-4 sm:space-y-6'>
 				<div className='space-y-2'>
 					<Label
 						htmlFor='fullName'
-						className='text-base'
+						className='text-sm sm:text-base'
 					>
 						Full Name
 					</Label>
 					<Input
 						id='fullName'
 						placeholder='Enter your full name'
-						className='max-w-md'
+						className='w-full sm:max-w-md'
 						value={fullName}
 						onChange={(e) => setFullName(e.target.value)}
 						disabled={isPending}
@@ -116,19 +115,19 @@ const ProfileTab: React.FC = () => {
 				<div className='space-y-2'>
 					<Label
 						htmlFor='about'
-						className='text-base'
+						className='text-sm sm:text-base'
 					>
 						About
 					</Label>
 					<Textarea
 						id='about'
 						placeholder='Tell us about yourself'
-						className='max-w-md h-[120px]'
+						className='w-full sm:max-w-md h-[100px] sm:h-[120px]'
 						value={about}
 						onChange={(e) => setAbout(e.target.value)}
 						disabled={isPending}
 					/>
-					<p className='text-sm text-muted-foreground'>
+					<p className='text-xs sm:text-sm text-muted-foreground'>
 						Brief description for your profile. Max 500 characters.
 					</p>
 				</div>
@@ -137,12 +136,12 @@ const ProfileTab: React.FC = () => {
 			<div className='flex justify-end'>
 				<Button
 					size='lg'
-					className='min-w-[120px]'
-					variant={'secondary'}
+					className='w-full sm:w-auto min-w-[120px] dark:bg-black/50 dark:hover:bg-black/70'
+					variant={'default'}
 					onClick={handleSave}
 					disabled={isPending}
 				>
-					{isPending ? <Loading className='w-5 h-5 ' /> : 'Save Changes'}
+					{isPending ? <Loading className='w-5 h-5' /> : 'Save Changes'}
 				</Button>
 			</div>
 		</section>

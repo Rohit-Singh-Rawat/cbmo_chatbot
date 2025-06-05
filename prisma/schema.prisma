@@ -90,14 +90,47 @@ model Thread {
   title     String
   userId    String
   type      ThreadType @default(conversation)
-  messages  Json[]
+  messages  Message[]
   metadata  Json?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId, updatedAt(sort: Desc)])
   @@map("chats")
+}
+
+model Message {
+  id              String       @id @default(cuid())
+  content         String       @db.Text
+  threadId        String
+  thread          Thread       @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  parentMessageId String?
+  parentMessage   Message?     @relation("ParentMessage", fields: [parentMessageId], references: [id], onDelete: Cascade)
+  attachments     Attachment[]
+  role            MessageRole  @default(user)
+  createdAt       DateTime     @default(now())
+  childrenMessage Message[]    @relation("ParentMessage")
+
+  @@map("messages")
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+  tool
+}
+
+model Attachment {
+  id        String  @id @default(cuid())
+  messageId String
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  url       String
+  type      String
+
+  @@map("attachments")
 }
 
 model Document {
