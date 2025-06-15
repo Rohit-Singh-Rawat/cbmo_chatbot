@@ -1,8 +1,8 @@
-import Google from '@/components/icons/google';
-import Github from '@/components/icons/github';
-import { IconProps } from '@/components/icons/types';
+import Google from "@/components/icons/google";
+import Github from "@/components/icons/github";
+import { IconProps } from "@/components/icons/types";
 
-export type OAuthProvider = 'google' | 'github';
+export type OAuthProvider = "google" | "github";
 
 export interface OAuthProviderConfig {
 	id: OAuthProvider;
@@ -14,17 +14,17 @@ export interface OAuthProviderConfig {
 
 export const oauthProviders: OAuthProviderConfig[] = [
 	{
-		id: 'google',
-		name: 'Google',
+		id: "google",
+		name: "Google",
 		icon: Google,
-		buttonText: 'Google',
-		loadingText: 'Signing in with Google',
+		buttonText: "Google",
+		loadingText: "Signing in with Google",
 	},
 	{
-		id: 'github',
-		name: 'GitHub',
+		id: "github",
+		name: "GitHub",
 		icon: Github,
-		buttonText: 'GitHub',
-		loadingText: 'Signing in with GitHub',
+		buttonText: "GitHub",
+		loadingText: "Signing in with GitHub",
 	},
 ];

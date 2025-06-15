@@ -3,6 +3,8 @@
 import { ThemeProvider } from 'next-themes';
 import { TRPCReactProvider } from '@/trpc/react';
 import { type ReactNode } from 'react';
+import { CurrentThreadProvider } from '@/store/currentThread/currentThreadProvider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 interface ProvidersProps {
 	children: ReactNode;
 }
@@ -16,7 +18,9 @@ export default function Providers({ children }: ProvidersProps) {
 				enableSystem
 				disableTransitionOnChange
 			>
-				{children}
+				<CurrentThreadProvider>
+							<TooltipProvider>{children}</TooltipProvider>
+				</CurrentThreadProvider>
 			</ThemeProvider>
 		</TRPCReactProvider>
 	);

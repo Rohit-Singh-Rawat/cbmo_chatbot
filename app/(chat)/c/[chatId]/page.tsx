@@ -1,17 +1,18 @@
-'use client';
-import { useState } from 'react';
-import ChatInput from '@/components/ChatInput';
-import Chats from '@/components/Chats';
-import { useSendMessage } from '@/lib/hook/useSendMessage';
-import { useChatStore } from '@/store/chatstore';
-import { nanoid } from 'nanoid';
-import { toast } from 'sonner';
+"use client";
+import { useState } from "react";
+import ChatInput from "@/components/ChatInput";
+import Chats from "@/components/Chats";
+import { useSendMessage } from "@/lib/hook/useSendMessage";
+	import { useMessageStore } from "@/store/message-store/messageStore";
+import { nanoid } from "nanoid";
+import { toast } from "sonner";
+import { useMessageStore } from "@/store/message-store/messageStore";
 const Page = () => {
-	const [input, setInput] = useState('');
+	const [input, setInput] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [files, setFiles] = useState<File[]>([]);
 
-	const { messages, addMessage } = useChatStore();
+	const { addMessage } = useMessageStore();
 	const { isGenerating, isStreaming, streamingText, sendMessage } =
 		useSendMessage({
 			onComplete: (fullText) => {
@@ -20,7 +21,7 @@ const Page = () => {
 			},
 			onError: () => {
 				setIsLoading(false);
-				toast.error('Error sending message');
+				toast.error("Error sending message");
 			},
 		});
 
@@ -35,7 +36,7 @@ const Page = () => {
 		if (!trimmedInput) return;
 		addMessage({ content: trimmedInput, isUser: true, id: nanoid() });
 		setIsLoading(true);
-		setInput('');
+		setInput("");
 		try {
 			await sendMessage(trimmedInput);
 		} catch {
@@ -48,9 +49,8 @@ const Page = () => {
 	};
 
 	return (
-		<div className='p-4  flex flex-col justify-end bg-background items-center container mx-auto relative'>
+		<div className="p-4  flex flex-col justify-end bg-background items-center container mx-auto relative">
 			<Chats
-				messages={messages}
 				streamingText={streamingText}
 				isStreaming={isProcessing}
 			/>

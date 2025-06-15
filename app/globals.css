@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 /*
   ---break---
 */
@@ -172,7 +172,7 @@
 		--sidebar-foreground: #fafafa;
 		--sidebar-primary: #181818;
 		--sidebar-primary-foreground: #ffffff;
-		--sidebar-accent: #0F0F0F;
+		--sidebar-accent: #0f0f0f;
 		--sidebar-accent-foreground: #fafafa;
 		--sidebar-border: #181818;
 		--sidebar-ring: #181818;

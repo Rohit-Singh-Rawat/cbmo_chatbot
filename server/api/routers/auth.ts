@@ -3,109 +3,105 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 import { auth } from "@/utils/auth";
 const userAuthSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(1),
+	email: z.string().email(),
+	name: z.string().min(1),
 });
 
 export const authRouter = createTRPCRouter({
-  oauth: publicProcedure
-    .input(z.object({ provider: z.enum(["google", "github"]) }))
-    .mutation(async ({ input, ctx }) => {
-      const { provider } = input;
-      await auth.api.signInSocial({
-        body: {
-          provider,
-        },
-      });
-     
-    
-      return {
-        status: 201,
-        message: "Account created successfully",
-      
-      };
-    }),
+	oauth: publicProcedure
+		.input(z.object({ provider: z.enum(["google", "github"]) }))
+		.mutation(async ({ input, ctx }) => {
+			const { provider } = input;
+			await auth.api.signInSocial({
+				body: {
+					provider,
+				},
+			});
 
-  // Register new user
-  register: publicProcedure
-    .input(userAuthSchema)
-    .mutation(async ({ input, ctx }) => {
-      const { email, name } = input;
+			return {
+				status: 201,
+				message: "Account created successfully",
+			};
+		}),
 
-      const exists = await ctx.db.user.findFirst({
-        where: { email },
-      });
+	// Register new user
+	register: publicProcedure
+		.input(userAuthSchema)
+		.mutation(async ({ input, ctx }) => {
+			const { email, name } = input;
 
-      if (exists) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: "User already exists",
-        });
-      }
+			const exists = await ctx.db.user.findFirst({
+				where: { email },
+			});
 
+			if (exists) {
+				throw new TRPCError({
+					code: "CONFLICT",
+					message: "User already exists",
+				});
+			}
 
-      return {
-        status: 201,
-        message: "Account created successfully",
-      
-      };
-    }),
+			return {
+				status: 201,
+				message: "Account created successfully",
+			};
+		}),
 
-  // Get user profile
-  getProfile: publicProcedure
-    .input(z.object({ userId: z.string() }))
-    .query(async ({ input, ctx }) => {
-      const user = await ctx.db.user.findUnique({
-        where: { id: input.userId },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          image: true,
-          accounts: true,
-        },
-      });
+	// Get user profile
+	getProfile: publicProcedure
+		.input(z.object({ userId: z.string() }))
+		.query(async ({ input, ctx }) => {
+			const user = await ctx.db.user.findUnique({
+				where: { id: input.userId },
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					image: true,
+					accounts: true,
+				},
+			});
 
-      if (!user) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "User not found",
-        });
-      }
+			if (!user) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "User not found",
+				});
+			}
 
-      return {
-        ...user,
-        providers: user.accounts.map((account: any) => account.provider),
-      };
-    }),
+			return {
+				...user,
+				providers: user.accounts.map((account: any) => account.provider),
+			};
+		}),
 
-  // Update user profile
-  updateProfile: publicProcedure
-    .input(
-      z.object({
-        userId: z.string(),
-        name: z.string().optional(),
-        image: z.string().optional(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const { userId, ...data } = input;
+	// Update user profile
+	updateProfile: publicProcedure
+		.input(
+			z.object({
+				userId: z.string(),
+				name: z.string().optional(),
+				image: z.string().optional(),
+			}),
+		)
+		.mutation(async ({ input, ctx }) => {
+			const { userId, ...data } = input;
 
-      const user = await ctx.db.user.update({
-        where: { id: userId },
-        data,
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          image: true,
-        },
-      });
+			const user = await ctx.db.user.update({
+				where: { id: userId },
+				data,
+				select: {
+					id: true,
+					name: true,
+					email: true,
+					image: true,
+				},
+			});
 
-      return {
-        status: 200,
-        message: "Profile updated successfully",
-        user,
-      };
-    }),
+			return {
+				status: 200,
+				message: "Profile updated successfully",
+				user,
+			};
+		}),
 });

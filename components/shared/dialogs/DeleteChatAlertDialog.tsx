@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -9,7 +9,7 @@ import {
 	AlertDialogTrigger,
 	AlertDialogAction,
 	AlertDialogCancel,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
 export interface DeleteChatAlertDialogProps {
 	open: boolean;
@@ -24,14 +24,11 @@ const DeleteChatAlertDialog: React.FC<DeleteChatAlertDialogProps> = ({
 	open,
 	onOpenChange,
 	onConfirm,
-	title = 'Delete Chat',
-	description = 'Are you sure you want to delete this chat? This action cannot be undone.',
+	title = "Delete Chat",
+	description = "Are you sure you want to delete this chat? This action cannot be undone.",
 	trigger,
 }) => (
-	<AlertDialog
-		open={open}
-		onOpenChange={onOpenChange}
-	>
+	<AlertDialog open={open} onOpenChange={onOpenChange}>
 		{trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
 		<AlertDialogContent>
 			<AlertDialogHeader>
@@ -39,8 +36,13 @@ const DeleteChatAlertDialog: React.FC<DeleteChatAlertDialogProps> = ({
 				<AlertDialogDescription>{description}</AlertDialogDescription>
 			</AlertDialogHeader>
 			<AlertDialogFooter>
-				<AlertDialogCancel  >Cancel</AlertDialogCancel>
-				<AlertDialogAction onClick={onConfirm} className='bg-destructive text-destructive-foreground hover:bg-destructive/90 dark:bg-red-500 dark:text-white dark:hover:bg-red-600'>Delete</AlertDialogAction>
+				<AlertDialogCancel>Cancel</AlertDialogCancel>
+				<AlertDialogAction
+					onClick={onConfirm}
+					className="bg-destructive text-destructive-foreground hover:bg-destructive/90 dark:bg-red-500 dark:text-white dark:hover:bg-red-600"
+				>
+					Delete
+				</AlertDialogAction>
 			</AlertDialogFooter>
 		</AlertDialogContent>
 	</AlertDialog>

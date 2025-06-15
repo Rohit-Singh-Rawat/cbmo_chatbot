@@ -1,12 +1,12 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { GoogleGenAI } from '@google/genai';
-import { auth } from '@/utils/auth';
-import { headers } from 'next/headers';
-import { nanoid } from 'nanoid';
-import { z } from 'zod';
-import { db } from '@/server/db';
-import { MessageRole, ThreadType } from '@/lib/generated/prisma';
-import { env } from '@/env';
+import { type NextRequest, NextResponse } from "next/server";
+import { GoogleGenAI } from "@google/genai";
+import { auth } from "@/utils/auth";
+import { headers } from "next/headers";
+import { nanoid } from "nanoid";
+import { z } from "zod";
+import { db } from "@/server/db";
+import { MessageRole, ThreadType } from "@/lib/generated/prisma";
+import { env } from "@/env";
 
 // Types
 interface Message {
@@ -44,9 +44,9 @@ interface DatabaseMessage {
 }
 
 // Constants
-const AI_MODEL = 'gemini-pro';
+const AI_MODEL = "gemini-pro";
 const MAX_TITLE_LENGTH = 5;
-const DEFAULT_TITLE = 'New Conversation';
+const DEFAULT_TITLE = "New Conversation";
 
 // Constants for message handling
 const MAX_CONTEXT_MESSAGES = 10; // Number of previous messages to include in context
@@ -93,7 +93,7 @@ Encourage users by celebrating their efforts and progress. Use phrases such as "
 async function validateSession() {
 	const session = await auth.api.getSession({ headers: await headers() });
 	if (!session) {
-		throw new Error('Unauthorized');
+		throw new Error("Unauthorized");
 	}
 	return session;
 }
@@ -102,7 +102,7 @@ async function validateRequest(request: NextRequest) {
 	const body = await request.json();
 	const result = RequestSchema.safeParse(body);
 	if (!result.success) {
-		throw new Error('Invalid request format');
+		throw new Error("Invalid request format");
 	}
 	return result.data;
 }
@@ -113,7 +113,7 @@ async function generateConversationTitle(content: string): Promise<string> {
 			model: AI_MODEL,
 			contents: [
 				{
-					role: 'user',
+					role: "user",
 					parts: [
 						{
 							text: `Generate a short, concise title (max ${MAX_TITLE_LENGTH} words) for a conversation that starts with: ${content}`,
@@ -125,7 +125,7 @@ async function generateConversationTitle(content: string): Promise<string> {
 
 		return result.text?.trim() || DEFAULT_TITLE;
 	} catch (error) {
-		console.error('Error generating title:', error);
+		console.error("Error generating title:", error);
 		return DEFAULT_TITLE;
 	}
 }
@@ -145,7 +145,7 @@ async function createNewConversation(userId: string, firstMessage: string) {
 
 async function getPreviousMessages(
 	conversationId: string,
-	limit = MAX_CONTEXT_MESSAGES
+	limit = MAX_CONTEXT_MESSAGES,
 ): Promise<MessageChain> {
 	try {
 		// Get message chain using cursor-based pagination directly with conversationId
@@ -154,7 +154,7 @@ async function getPreviousMessages(
 				threadId: conversationId,
 			},
 			take: limit + 1, // Get one extra to check if there are more
-			orderBy: [{ createdAt: 'desc' }],
+			orderBy: [{ createdAt: "desc" }],
 			include: {
 				attachments: true,
 			},
@@ -174,7 +174,7 @@ async function getPreviousMessages(
 			nextCursor: hasMore ? messages[limit].id : undefined,
 		};
 	} catch (error) {
-		console.error('Error fetching message chain:', error);
+		console.error("Error fetching message chain:", error);
 		return { messages: [], hasMore: false };
 	}
 }
@@ -187,14 +187,14 @@ function estimateTokenCount(text: string): number {
 function prepareConversationContext(
 	systemPrompt: string,
 	previousMessages: any[],
-	currentMessages: Message[]
+	currentMessages: Message[],
 ): any[] {
 	let totalTokens = estimateTokenCount(systemPrompt);
-	const context = [{ role: 'system', parts: [{ text: systemPrompt }] }];
+	const context = [{ role: "system", parts: [{ text: systemPrompt }] }];
 
 	// Add current messages first (they're most important)
 	const currentContextMessages = currentMessages.map((msg) => ({
-		role: msg.role === MessageRole.user ? 'user' : 'assistant',
+		role: msg.role === MessageRole.user ? "user" : "assistant",
 		parts: [{ text: msg.content }],
 	}));
 
@@ -211,7 +211,7 @@ function prepareConversationContext(
 		if (totalTokens + tokens > MAX_TOKEN_LENGTH) break;
 		// Map the role to the expected string literal
 		context.unshift({
-			role: msg.role === MessageRole.user ? 'user' : 'assistant',
+			role: msg.role === MessageRole.user ? "user" : "assistant",
 			parts: [{ text: msg.content }],
 		});
 		totalTokens += tokens;
@@ -223,7 +223,7 @@ function prepareConversationContext(
 async function storeUserMessages(
 	messages: Message[],
 	conversationId: string,
-	parentId?: string
+	parentId?: string,
 ) {
 	let lastMessageId = parentId;
 
@@ -242,7 +242,7 @@ async function storeUserMessages(
 							type: attachment.type,
 							url: attachment.url,
 						})),
-				  }
+					}
 				: undefined,
 		};
 
@@ -260,7 +260,7 @@ async function storeAIResponse(
 	responseId: string,
 	content: string,
 	conversationId: string,
-	parentMessageId: string
+	parentMessageId: string,
 ) {
 	const messageData: DatabaseMessage = {
 		id: responseId,
@@ -279,14 +279,14 @@ function createResponseStream(
 	model: any,
 	responseId: string,
 	conversationId: string,
-	parentMessageId: string
+	parentMessageId: string,
 ) {
 	const encoder = new TextEncoder();
 
 	return new ReadableStream({
 		async start(controller) {
 			try {
-				let fullResponse = '';
+				let fullResponse = "";
 				for await (const chunk of model) {
 					const chunkText = chunk.text;
 					if (chunkText) {
@@ -299,7 +299,7 @@ function createResponseStream(
 					responseId,
 					fullResponse,
 					conversationId,
-					parentMessageId
+					parentMessageId,
 				);
 				controller.close();
 			} catch (error) {
@@ -335,14 +335,14 @@ export async function POST(request: NextRequest) {
 		const lastMessageId = await storeUserMessages(
 			messages,
 			currentConversationId,
-			requestData.parentId
+			requestData.parentId,
 		);
 
 		// Prepare context with token limit awareness
 		const conversationContext = prepareConversationContext(
 			systemPrompt,
 			previousMessages,
-			messages
+			messages,
 		);
 
 		const result = await ai.models.generateContentStream({
@@ -361,31 +361,31 @@ export async function POST(request: NextRequest) {
 			result,
 			responseId,
 			currentConversationId,
-			lastMessageId || '' // Use the last message as parent
+			lastMessageId || "", // Use the last message as parent
 		);
 
 		return new Response(stream, {
 			headers: {
-				'Content-Type': 'text/event-stream; charset=utf-8',
-				'Cache-Control': 'no-cache',
-				Connection: 'keep-alive',
-				'X-Conversation-Id': currentConversationId,
-				'X-Response-Id': responseId,
-				'X-Has-More-Context': hasMore.toString(),
+				"Content-Type": "text/event-stream; charset=utf-8",
+				"Cache-Control": "no-cache",
+				Connection: "keep-alive",
+				"X-Conversation-Id": currentConversationId,
+				"X-Response-Id": responseId,
+				"X-Has-More-Context": hasMore.toString(),
 			},
 		});
 	} catch (error) {
-		console.error('API Error:', error);
+		console.error("API Error:", error);
 		const errorMessage =
-			error instanceof Error ? error.message : 'Failed to process request';
+			error instanceof Error ? error.message : "Failed to process request";
 		return NextResponse.json(
 			{ error: errorMessage },
 			{
 				status:
-					error instanceof Error && error.message === 'Unauthorized'
+					error instanceof Error && error.message === "Unauthorized"
 						? 401
 						: 500,
-			}
+			},
 		);
 	}
 }

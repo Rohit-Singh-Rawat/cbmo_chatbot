@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { authClient } from '@/utils/auth-client';
-import { toast } from 'sonner';
-import { OAuthProvider } from '@/lib/auth/providers';
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { authClient } from "@/utils/auth-client";
+import { toast } from "sonner";
+import { OAuthProvider } from "@/lib/auth/providers";
 
 interface OAuthResponse {
 	success: boolean;
@@ -23,7 +23,7 @@ export function useOAuth() {
 			const response = await authClient.signIn.social({ provider });
 
 			if (!response.data) {
-				throw new Error('Authentication failed');
+				throw new Error("Authentication failed");
 			}
 
 			return {
@@ -33,11 +33,11 @@ export function useOAuth() {
 		},
 		onSuccess: (data) => {
 			if (data.success) {
-				toast.success('Successfully signed in');
+				toast.success("Successfully signed in");
 			}
 		},
 		onError: (error) => {
-			toast.error('Failed to sign in: ' + error.message);
+			toast.error("Failed to sign in: " + error.message);
 		},
 	});
 

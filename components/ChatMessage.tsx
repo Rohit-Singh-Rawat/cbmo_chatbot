@@ -70,8 +70,7 @@ export function ChatMessage({ content, isUser = false }: ChatMessageProps) {
 							</button>
 						</TooltipTrigger>
 						<TooltipContent
-							arrowClassName="-translate-y-[30px]"
-							sideOffset={-100}
+							side="bottom"
 							className="text-xs"
 						>
 							{copied ? "Copied" : "Copy text"}

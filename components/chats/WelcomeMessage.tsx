@@ -1,14 +1,17 @@
-import { FC } from 'react';
+import { FC } from "react";
 
 const WelcomeMessage: FC = () => {
 	return (
 		<section className='flex flex-col items-center justify-center p-4 text-center bg-background text-foreground flex-1'>
-			<h1 className='text-2xl sm:text-3xl 3xl:text-4xl mb-2 font-medium'>Hey there 👋</h1>
-			<p className='text-sm sm:text-base 3xl:text-lg text-muted-foreground font-light  '>
-				Ready to chat! How can I help?
+			<p className='text-xl sm:text-2xl mb-2 text-muted-foreground font-light'>
+				Good to See You !
 			</p>
+			<h1 className='text-xl sm:text-2xl mb-2 '>
+				How can I be of Assistance?
+			</h1>
 		</section>
 	);
 };
 
 export default WelcomeMessage;
+

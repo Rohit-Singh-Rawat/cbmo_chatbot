@@ -1,13 +1,13 @@
-import { z } from 'zod';
-import { createTRPCRouter, protectedProcedure } from '../trpc';
-import { TRPCError } from '@trpc/server';
+import { z } from "zod";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
 
 export const threadsRouter = createTRPCRouter({
 	create: protectedProcedure
 		.input(
 			z.object({
 				title: z.string().min(1),
-			})
+			}),
 		)
 		.mutation(async ({ input, ctx }) => {
 			const { title } = input;
@@ -34,7 +34,7 @@ export const threadsRouter = createTRPCRouter({
 				createdAt: true,
 			},
 			orderBy: {
-				createdAt: 'desc',
+				createdAt: "desc",
 			},
 		});
 
@@ -53,8 +53,8 @@ export const threadsRouter = createTRPCRouter({
 
 			if (!thread) {
 				throw new TRPCError({
-					code: 'NOT_FOUND',
-					message: 'Thread not found',
+					code: "NOT_FOUND",
+					message: "Thread not found",
 				});
 			}
 
@@ -66,7 +66,7 @@ export const threadsRouter = createTRPCRouter({
 			z.object({
 				id: z.string(),
 				title: z.string().min(1),
-			})
+			}),
 		)
 		.mutation(async ({ input, ctx }) => {
 			const { id, title } = input;
@@ -80,8 +80,8 @@ export const threadsRouter = createTRPCRouter({
 
 			if (!thread) {
 				throw new TRPCError({
-					code: 'NOT_FOUND',
-					message: 'Thread not found',
+					code: "NOT_FOUND",
+					message: "Thread not found",
 				});
 			}
 
@@ -107,8 +107,8 @@ export const threadsRouter = createTRPCRouter({
 
 			if (!thread) {
 				throw new TRPCError({
-					code: 'NOT_FOUND',
-					message: 'Thread not found',
+					code: "NOT_FOUND",
+					message: "Thread not found",
 				});
 			}
 

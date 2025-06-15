@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { loginSchema, type LoginFormData } from "@/lib/validation/login";
 import { OAuthButtons } from "./oauth-buttons";
-	
+
 export function LoginForm() {
 	const form = useForm<LoginFormData>({
 		resolver: zodResolver(loginSchema),
@@ -76,7 +76,6 @@ export function LoginForm() {
 				>
 					Log in
 				</Button>
-
 
 				<OAuthButtons />
 			</form>

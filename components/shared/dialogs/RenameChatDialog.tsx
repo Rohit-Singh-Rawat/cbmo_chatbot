@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -8,9 +8,9 @@ import {
 	DialogDescription,
 	DialogTrigger,
 	DialogClose,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export interface RenameChatDialogProps {
 	open: boolean;
@@ -41,10 +41,7 @@ const RenameChatDialog: React.FC<RenameChatDialogProps> = ({
 	};
 
 	return (
-		<Dialog
-			open={open}
-			onOpenChange={onOpenChange}
-		>
+		<Dialog open={open} onOpenChange={onOpenChange}>
 			{trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
 			<DialogContent>
 				<form onSubmit={handleSubmit}>
@@ -58,26 +55,25 @@ const RenameChatDialog: React.FC<RenameChatDialogProps> = ({
 						value={value}
 						onChange={(e) => setValue(e.target.value)}
 						autoFocus
-						className='mt-4'
+						className="mt-4"
 						maxLength={100}
 						required
 					/>
-					<DialogFooter className='mt-4'>
+					<DialogFooter className="mt-4">
 						<DialogClose asChild>
 							<Button
-								type='button'
-								variant='ghost'
-								className='hover:bg-gray-100 border border-border dark:border-white/10'
+								type="button"
+								variant="ghost"
+								className="hover:bg-gray-100 border border-border dark:border-white/10"
 							>
 								Cancel
 							</Button>
 						</DialogClose>
 						<Button
-							type='submit'
-							variant='default'
+							type="submit"
+							variant="default"
 							disabled={!value.trim()}
-							className='dark:bg-white dark:text-black dark:hover:bg-white/90'
-							
+							className="dark:bg-white dark:text-black dark:hover:bg-white/90"
 						>
 							Rename
 						</Button>
